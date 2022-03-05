@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "popol"
+version = "0.1.0"
+description = "Third party packages for your FastAPI projects!"
+authors = ["aprilahijriyan <hijriyan23@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "^0.74.1"
+
+[tool.poetry.dev-dependencies]
+ipython = "^8.1.1"
+pre-commit = "^2.17.0"
+black = "^22.1.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
