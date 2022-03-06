@@ -73,34 +73,30 @@ class PageNumberPagination(Pagination):
     def get_paginated_response(
         self,
         data: Sequence,
-        page: int = 1,
-        page_size: int = 10,
     ) -> dict:
         """
         Return a paginated response.
         Args:
             data: Data to be paginated.
-            page: Page number.
-            page_size: Page size.
         """
 
         # Counting all pages
         total_data = self.get_total_data(data)
-        pages = self.get_total_page(total_data, page_size)
-        prev_page = page - 1
+        pages = self.get_total_page(total_data, self.page_size)
+        prev_page = self.page - 1
         if prev_page not in pages:
             prev_page = None  # type: ignore[assignment]
 
-        next_page = page + 1
+        next_page = self.page + 1
         if next_page not in pages:
             next_page = None  # type: ignore[assignment]
 
         # Get data per page
-        data = self.paginate(data, page, page_size)
-        total = self.get_total_data(data)
+        data = self.paginate(data)
+        rows = self.get_total_data(data)
         result = {
-            "total": total,
-            "rows": len(data),
+            "total": total_data,
+            "rows": rows,
             "paging": {"next": next_page, "prev": prev_page, "pages": pages},
             "data": data,
         }
