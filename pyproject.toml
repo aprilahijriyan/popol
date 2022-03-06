@@ -7,7 +7,9 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-fastapi = "^0.74.1"
+fastapi = "^0.75.0"
+redis = {version = "^4.1.4", optional = true}
+uvicorn = {extras = ["standard"], version = "^0.17.5"}
 
 [tool.poetry.dev-dependencies]
 ipython = "^8.1.1"
