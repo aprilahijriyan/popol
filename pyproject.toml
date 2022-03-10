@@ -10,6 +10,7 @@ python = "^3.8"
 fastapi = "^0.75.0"
 redis = {version = "^4.1.4", optional = true}
 uvicorn = {extras = ["standard"], version = "^0.17.5"}
+saq = {version = "^0.4.1", optional = true}
 
 [tool.poetry.dev-dependencies]
 ipython = "^8.1.1"
@@ -27,3 +28,6 @@ profile = "black"
 [tool.poetry.scripts]
 
 popol = "popol.__main__:popol"
+
+[tool.poetry.plugins."popol.commands"]
+saq = "popol.jobs.saq.cli:saq"

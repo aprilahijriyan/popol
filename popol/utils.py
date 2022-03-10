@@ -1,8 +1,12 @@
 import os
+import sys
 from distutils.dir_util import copy_tree
 from importlib import import_module
-from typing import Any
+from typing import Any, TypeVar
 
+from fastapi import FastAPI
+
+T = TypeVar("T")
 POPOL_TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "templates")
 
 
@@ -44,3 +48,63 @@ def import_attr(module: str) -> Any:
     package, attr = module.rsplit(".", 1)
     mod = import_module(package)
     return getattr(mod, attr)
+
+
+def get_settings(app: FastAPI, settings: T = None) -> T:
+    """
+    Get the settings from the application.
+
+    Args:
+        app: The application.
+        settings: The settings.
+
+    Raises:
+        RuntimeError: If settings not found.
+
+    Returns:
+        Any: The settings.
+    """
+
+    if not hasattr(app, "state"):
+        raise RuntimeError("The application does not have a state.")
+
+    settings = getattr(app.state, "settings", settings)
+    if not settings:
+        raise RuntimeError("The application does not have a settings.")
+
+    return settings
+
+
+_current_app = None
+
+
+def load_app() -> FastAPI:
+    """
+    Load the application.
+
+    Returns:
+        FastAPI: The application.
+    """
+
+    global _current_app
+
+    if _current_app and isinstance(_current_app, FastAPI):
+        return _current_app
+
+    cwd = os.getcwd()
+    sys.path.insert(0, cwd)
+    env = os.getenv("POPOL_APP", "app.main:app")
+    try:
+        module, attr = env.rsplit(":", 1)
+    except ValueError:
+        raise RuntimeError("Invalid POPOL_APP environment variable.")
+
+    try:
+        _current_app = import_attr(f"{module}.{attr}")
+    except ModuleNotFoundError:
+        raise RuntimeError(
+            f"Could not import {module} (make sure you are in the app's root directory)"
+        )
+
+    assert isinstance(_current_app, FastAPI)
+    return _current_app

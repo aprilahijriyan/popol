@@ -1,12 +1,22 @@
+import os
 from typing import Optional
 
-from pkg_resources import get_distribution
+from pkg_resources import get_distribution, iter_entry_points
 from popol.utils import copy_template_dir
 from typer import Argument, Context, Option, Typer, echo, prompt
 
 popol = Typer(
     name="popol", help="Popol CLI", no_args_is_help=True, invoke_without_command=True
 )
+
+
+def load_commands():
+    for ep in iter_entry_points("popol.commands"):
+        cmd = ep.load()
+        if isinstance(cmd, Typer):
+            popol.add_typer(cmd)
+        else:
+            popol.command(ep.name, cmd)
 
 
 @popol.callback()
@@ -41,3 +51,9 @@ def init(outdir: str = Argument(None, help="The output directory")):
     copy_template_dir(
         outdir, project_name=project_name, project_description=project_description
     )
+    echo("Your project has been created in {}".format(outdir))
+
+
+if "POPOL_COMMAND_INITIALIZED" not in os.environ:
+    load_commands()
+    os.environ["POPOL_COMMAND_INITIALIZED"] = "1"

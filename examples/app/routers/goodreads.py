@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Request
 from popol.cache.backends.redis import RedisBackend
+from popol.jobs.saq.queue import Queue
 
 from app.core import goodreads
 from app.core.pagination import get_paginated_response
@@ -20,3 +21,14 @@ async def get_quotes(request: Request, tag: str, page: int = 1, page_size: int =
         cache.set(tag, quotes, 15)
 
     return get_paginated_response(quotes, page, page_size)
+
+
+@router.post("/quotes/{tag}", summary="Create a job to get quotes by tag")
+async def create_job(request: Request, tag: str):
+    """
+    Create a job to get quotes by tag.
+    """
+
+    queue: Queue = request.app.state.queue
+    job = await queue.enqueue("scrape_quote", tag=tag)
+    return {"detail": "Job created", "job_id": job.id}

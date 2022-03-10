@@ -1,5 +1,7 @@
 from pydantic import BaseSettings, Field
 
+from app.tasks import scrape_quote
+
 
 class Settings(BaseSettings):
     APP_ENV: str = Field("local", env="APP_ENV")
@@ -15,5 +17,12 @@ class Settings(BaseSettings):
                 "port": REDIS_PORT,
                 "db": REDIS_DB,
             },
+        }
+    }
+    SAQ_QUEUES = {
+        "default": {
+            "url": f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}",
+            "functions": [scrape_quote],
+            "concurrency": 10,
         }
     }

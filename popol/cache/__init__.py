@@ -3,17 +3,14 @@ from typing import Any, Dict, List
 
 from fastapi import FastAPI
 
-from ..utils import import_attr
+from ..utils import get_settings, import_attr
 from .backends.base import BaseCacheBackend
 from .backends.dummy import DummyBackend
 from .serializers.base import BaseSerializer
 
 
 def setup(app: FastAPI, settings: Any = None) -> Dict[str, BaseCacheBackend]:
-    settings = getattr(app.state, "settings", settings)
-    if not settings:
-        raise RuntimeError("settings is required")
-
+    settings = get_settings(app, settings)
     caches = {}
     caches_settings: Dict[str, dict] = getattr(settings, "CACHES", {})
     for name, cache_config in caches_settings.items():
