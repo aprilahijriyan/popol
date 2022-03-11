@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.routers import account, goodreads
+from app.routers import account, counter, goodreads
 
 
 def init_routers(app: FastAPI):
@@ -10,3 +10,4 @@ def init_routers(app: FastAPI):
 
     app.include_router(goodreads.router)
     app.include_router(account.router)
+    app.include_router(counter.router)
