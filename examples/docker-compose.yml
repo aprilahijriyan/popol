@@ -8,7 +8,18 @@ services:
     -   6379:6379
     volumes:
     -   redis-data:/data
+  db:
+    restart: always
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=popol_user
+      - POSTGRES_PASSWORD=popol_pass
+      - POSTGRES_DB=popol_db
+    volumes:
+      - db-data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
 
 volumes:
-  mysql-data:
+  db-data:
   redis-data:

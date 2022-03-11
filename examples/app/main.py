@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 
+from app import models  # noqa
 from app.extensions import init_extensions
 from app.middleware import init_middleware
 from app.routers import init_routers
