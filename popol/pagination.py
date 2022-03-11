@@ -1,5 +1,7 @@
 from abc import ABCMeta, abstractmethod
-from typing import Any, List, Sequence
+from typing import List, Sequence, TypeVar
+
+T = TypeVar("T")
 
 
 class Pagination(metaclass=ABCMeta):
@@ -11,11 +13,11 @@ class Pagination(metaclass=ABCMeta):
         pass  # pragma: no cover
 
     @abstractmethod
-    def paginate(self, data: Sequence) -> Sequence:
+    def paginate(self, data: T) -> Sequence:
         pass  # pragma: no cover
 
     @abstractmethod
-    def get_paginated_response(self, data: Sequence) -> dict:
+    def get_paginated_response(self, data: T) -> dict:
         pass
 
 
@@ -39,7 +41,7 @@ class PageNumberPagination(Pagination):
         limit = self.get_limit()
         return data[offset : offset + limit]
 
-    def get_total_data(self, data: Any):
+    def get_total_data(self, data: T) -> int:
         """
         Get total data.
         Might be useful if the data is a QuerySet or something that can compute :)
@@ -72,7 +74,7 @@ class PageNumberPagination(Pagination):
 
     def get_paginated_response(
         self,
-        data: Sequence,
+        data: T,
     ) -> dict:
         """
         Return a paginated response.

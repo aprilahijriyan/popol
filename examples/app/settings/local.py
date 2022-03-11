@@ -1,6 +1,7 @@
 from pydantic import BaseSettings, Field
+from saq.job import CronJob
 
-from app.tasks import scrape_quote
+from app.tasks import counter, scrape_quote
 
 
 class Settings(BaseSettings):
@@ -24,5 +25,17 @@ class Settings(BaseSettings):
             "url": f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}",
             "functions": [scrape_quote],
             "concurrency": 10,
+            "cron_jobs": [CronJob(counter, cron="* * * * * */5")],
         }
     }
+    DB_USERNAME = "popol_user"
+    DB_PASSWORD = "popol_pass"
+    DB_HOST = "localhost"
+    DB_PORT = 5432
+    DB_NAME = "popol_db"
+    SQLALCHEMY_ASYNC_MODE = False
+    SQLALCHEMY_DIALECT = "psycopg2"
+    if SQLALCHEMY_ASYNC_MODE:
+        SQLALCHEMY_DIALECT = "asyncpg"
+    SQLALCHEMY_DATABASE_URI = f"postgresql+{SQLALCHEMY_DIALECT}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    SQLALCHEMY_OPTIONS = {}

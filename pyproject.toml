@@ -8,9 +8,11 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.8"
 fastapi = "^0.75.0"
-redis = {version = "^4.1.4", optional = true}
 uvicorn = {extras = ["standard"], version = "^0.17.5"}
+redis = {version = "^4.1.4", optional = true}
 saq = {version = "^0.4.1", optional = true}
+sqlmodel = {version = "^0.0.6", optional = true}
+pyhumps = {version = "^3.5.3", optional = true}
 
 [tool.poetry.dev-dependencies]
 ipython = "^8.1.1"

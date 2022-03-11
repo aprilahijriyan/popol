@@ -4,7 +4,7 @@ from distutils.dir_util import copy_tree
 from importlib import import_module
 from typing import Any, TypeVar
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 
 T = TypeVar("T")
 POPOL_TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), "templates")
@@ -108,3 +108,19 @@ def load_app() -> FastAPI:
 
     assert isinstance(_current_app, FastAPI)
     return _current_app
+
+
+def abort(status_code: int, detail: Any = None, headers: dict = None):
+    """
+    Abort the request.
+
+    Args:
+        status_code: The status code.
+        detail: The detail.
+        headers: The headers.
+
+    Raises:
+        HTTPException: The HTTP exception.
+    """
+
+    raise HTTPException(status_code=status_code, detail=detail, headers=headers)
