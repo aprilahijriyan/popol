@@ -17,7 +17,7 @@ def get_request_object(kwargs: dict) -> Request:
 
 
 def get_cache_backend(request: Request, cache: str = "default") -> BaseCacheBackend:
-    cache_backend: BaseCacheBackend = request.state.caches[cache]
+    cache_backend: BaseCacheBackend = request.app.state.caches[cache]
     return cache_backend
 
 
