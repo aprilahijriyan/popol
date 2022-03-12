@@ -48,3 +48,17 @@ class Settings(BaseSettings):
         SQLALCHEMY_DIALECT = "asyncpg"
     SQLALCHEMY_DATABASE_URI = f"postgresql+{SQLALCHEMY_DIALECT}://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     SQLALCHEMY_OPTIONS = {}
+    EMAIL_BACKEND = "popol.email.backend.EmailBackend"
+    EMAIL_HOSTNAME = "localhost"
+    EMAIL_PORT = 8025
+    # EMAIL_USERNAME = None
+    # EMAIL_PASSWORD = None
+    # EMAIL_TIMEOUT = 60
+    # EMAIL_USE_TLS = False
+    # EMAIL_START_TLS = False
+    # EMAIL_VALIDATE_CERTS = True
+    # EMAIL_CLIENT_CERT = None
+    # EMAIL_CLIENT_KEY = None
+    # EMAIL_CERT_BUNDLE = None
+    EMAIL_ASYNC_MODE = False
+    DEFAULT_FROM_EMAIL = "Local <noreply@localhost>"
