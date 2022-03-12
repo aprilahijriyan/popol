@@ -5,8 +5,9 @@ from typing import Callable
 
 from fastapi import Request
 
+from ..utils import run_sync
 from .backends.base import BaseCacheBackend
-from .helpers import get_cache_backend, get_request_object, run_sync
+from .helpers import get_cache_backend, get_request_object
 from .key import get_cache_key
 
 
