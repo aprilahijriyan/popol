@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Request
+from popol.cache.decorators import cached
 from popol.db.sqlmodel import Database
 from popol.utils import abort
 from pydantic import BaseModel
@@ -17,7 +18,8 @@ router = APIRouter(prefix="/account", tags=["Account"])
 
 
 @router.get("/", summary="Get all accounts")
-async def get_accounts(request: Request, page: int = 1, page_size: int = 10):
+@cached(cache="aioredis")
+def get_accounts(request: Request, page: int = 1, page_size: int = 10):
     """
     Get all accounts.
     """
