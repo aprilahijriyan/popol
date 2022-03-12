@@ -12,20 +12,29 @@ class Settings(BaseSettings):
     REDIS_DB = 0
     CACHES = {
         "default": {
-            "BACKEND": "popol.cache.backends.redis.RedisBackend",
-            "OPTIONS": {
+            "backend": "popol.cache.backends.redis.RedisBackend",
+            "options": {
                 "host": REDIS_HOST,
                 "port": REDIS_PORT,
                 "db": REDIS_DB,
             },
-        }
+        },
+        "aioredis": {
+            "backend": "popol.cache.backends.aioredis.AsyncRedisBackend",
+            "options": {
+                "host": REDIS_HOST,
+                "port": REDIS_PORT,
+                "db": 1,
+            },
+        },
     }
     SAQ_QUEUES = {
         "default": {
             "url": f"redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}",
             "functions": [scrape_quote],
             "concurrency": 10,
-            "cron_jobs": [CronJob(counter, cron="* * * * * */5")],
+            "cron_jobs": [CronJob(counter, cron="* * * * *")],
+            "context": {},
         }
     }
     DB_USERNAME = "popol_user"
