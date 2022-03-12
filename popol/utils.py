@@ -4,7 +4,7 @@ from distutils.dir_util import copy_tree
 from importlib import import_module
 from typing import Any, Coroutine, TypeVar
 
-import anyio
+from asyncer import syncify
 from fastapi import FastAPI, HTTPException
 
 T = TypeVar("T")
@@ -128,7 +128,4 @@ def abort(status_code: int, detail: Any = None, headers: dict = None):
 
 
 def run_sync(func: Coroutine, *args, **kwds):
-    async def executor():
-        return await func(*args, **kwds)
-
-    return anyio.from_thread.run(executor)
+    return syncify(func)(*args, **kwds)
