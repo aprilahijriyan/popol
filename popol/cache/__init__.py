@@ -14,11 +14,11 @@ def setup(app: FastAPI, settings: Any = None) -> Dict[str, BaseCacheBackend]:
     caches = {}
     caches_settings: Dict[str, dict] = getattr(settings, "CACHES", {})
     for name, cache_config in caches_settings.items():
-        serializer_settings: dict = cache_config.get("SERIALIZER", {})
+        serializer_settings: dict = cache_config.get("serializer", {})
         serializer_class = serializer_settings.get(
-            "CLASS", "popol.cache.serializers.PickleSerializer"
+            "class", "popol.cache.serializers.PickleSerializer"
         )
-        serializer_options: dict = serializer_settings.get("OPTIONS", {})
+        serializer_options: dict = serializer_settings.get("options", {})
         try:
             serializer_class: BaseSerializer = import_attr(serializer_class)
         except ImportError as e:
@@ -27,10 +27,10 @@ def setup(app: FastAPI, settings: Any = None) -> Dict[str, BaseCacheBackend]:
             ) from e
 
         serializer = serializer_class(
-            serializer_options.get("DUMPS", {}),
-            serializer_options.get("LOADS", {}),
+            serializer_options.get("dumps", {}),
+            serializer_options.get("loads", {}),
         )
-        backend = cache_config.get("BACKEND")
+        backend = cache_config.get("backend")
         if not backend:
             raise RuntimeError('No backend specified for cache "{}"'.format(name))
 
@@ -41,7 +41,7 @@ def setup(app: FastAPI, settings: Any = None) -> Dict[str, BaseCacheBackend]:
                 'Could not import cache backend "{}"'.format(backend)
             ) from e
 
-        options = cache_config.get("OPTIONS", {})
+        options = cache_config.get("options", {})
         backend = backend(serializer, **options)
         caches[name] = backend
 
