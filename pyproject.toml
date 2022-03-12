@@ -9,11 +9,14 @@ license = "MIT"
 python = "^3.8"
 fastapi = "^0.75.0"
 uvicorn = {extras = ["standard"], version = "^0.17.5"}
+pydantic = {extras = ["email"], version = "^1.9.0"}
+asyncer = "^0.0.1"
 redis = {version = "^4.1.4", optional = true}
 saq = {version = "^0.4.1", optional = true}
 sqlmodel = {version = "^0.0.6", optional = true}
 pyhumps = {version = "^3.5.3", optional = true}
 aioredis = {version = "^2.0.1", optional = true}
+aiosmtplib = {version = "^1.1.6", optional = true}
 
 [tool.poetry.dev-dependencies]
 ipython = "^8.1.1"
