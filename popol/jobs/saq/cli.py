@@ -28,7 +28,12 @@ def runworker(queue: str = Option(..., help="Queue to run (e.g. default)")):
     if startup and not asyncio.iscoroutinefunction(startup):
         raise RuntimeError("startup must be a coroutine")
 
+    default_ctx = q_setting.pop("context", {})
+    if not isinstance(default_ctx, dict):
+        raise RuntimeError("context must be a dict")
+
     async def x_startup(ctx: dict):
+        ctx.update(default_ctx)
         ctx["app"] = app
         ctx["state"] = app.state
         if startup:
@@ -39,7 +44,7 @@ def runworker(queue: str = Option(..., help="Queue to run (e.g. default)")):
     worker = Worker(queue_obj, functions, **q_setting)
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    echo("Starting SAQ worker... (Press CTRL-C to exit)", nl=False)
+    echo("Starting SAQ worker... (Press CTRL-C to exit)")
     try:
         loop.run_until_complete(worker.start())
     finally:
