@@ -1,0 +1,108 @@
+site_name: Popol
+repo_url: https://github.com/aprilahijriyan/popol
+repo_name: aprilahijriyan/popol
+edit_uri: edit/main/docs/
+copyright: Copyright &copy; 2022 Aprila Hijriyan
+plugins:
+  - search
+  - git-revision-date
+  - git-revision-date-localized:
+      type: datetime
+      fallback_to_build_date: true
+  - mkdocstrings:
+      watch:
+        - popol/
+  - include_dir_to_nav
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.indexes
+    - navigation.tracking
+    # - toc.integrate
+    - content.code.annotate
+
+  icon:
+    repo: fontawesome/brands/github
+  font:
+    text: Open Sans
+
+  palette:
+    - scheme: default
+      primary: deep purple
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+extra:
+  social:
+    - icon: fontawesome/brands/facebook
+      link: https://facebook.com/aprilahijriyan
+
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/apriladev
+
+    - icon: fontawesome/brands/medium
+      link: https://apriladev.medium.com
+
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/apriladev/
+
+  alternate:
+    - name: English
+      link: /
+      lang: en
+
+    # - name: Indonesia
+    #   link: /id/
+    #   lang: id
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.magiclink
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - attr_list
+  - md_in_html
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - tutorial/introduction.md
+    - tutorial/email.md
+    - tutorial/pagination.md
+    - Cache:
+      - tutorial/cache/index.md
+      - Backends:
+        - tutorial/cache/backends/index.md
+        - tutorial/cache/backends/redis.md
+        - tutorial/cache/backends/aioredis.md
+      - Serializers:
+        - tutorial/cache/serializers/index.md
+        - tutorial/cache/serializers/json.md
+        - tutorial/cache/serializers/pickle.md
+    - ORM:
+      - tutorial/orm/index.md
+      - tutorial/orm/sqlmodel.md
+    - Background Jobs:
+      - tutorial/background-jobs/index.md
+      - tutorial/background-jobs/saq.md
+    - tutorial/cli.md
+
+  - contributing.md

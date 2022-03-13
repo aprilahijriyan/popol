@@ -45,7 +45,3 @@ This project aims to provide APIs to support your FastAPI projects without break
 ```
 pip install popol
 ```
-
-## Documentation 📖
-
-Not available at this time, please learn from the [examples](https://github.com/aprilahijriyan/popol/tree/main/examples).
