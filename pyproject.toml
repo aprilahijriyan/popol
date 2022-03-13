@@ -1,9 +1,32 @@
 [tool.poetry]
 name = "popol"
 version = "0.1.0"
-description = "Third party packages for your FastAPI projects!"
+description = "Third party packages for your FastAPI projects"
 authors = ["aprilahijriyan <hijriyan23@gmail.com>"]
 license = "MIT"
+maintainers = ["aprilahijriyan <hijriyan23@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/aprilahijriyan/popol"
+repository = "https://github.com/aprilahijriyan/popol"
+classifiers = [
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "Operating System :: OS Independent",
+    "Topic :: Internet",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Development Status :: 4 - Beta",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -37,3 +60,7 @@ popol = "popol.__main__:popol"
 
 [tool.poetry.plugins."popol.commands"]
 saq = "popol.jobs.saq.cli:saq"
+
+[tool.poetry.urls]
+
+"Bug Tracker" = "https://github.com/aprilahijriyan/popol/issues"

@@ -10,6 +10,20 @@ from .serializers.base import BaseSerializer
 
 
 def setup(app: FastAPI, settings: Any = None) -> Dict[str, BaseCacheBackend]:
+    """
+    Install the cache plugin to the app.
+    This will attach 2 attributes to `app.state` i.e:
+
+    * `cache` - Default cache backend if available.
+    * `caches` - All cache backends (dict type)
+
+    Args:
+        app: FastAPI app.
+        settings: The settings (can be pydantic.BaseSettings).
+
+    Returns:
+        Dict[str, popol.cache.backends.base.BaseCacheBackend]: cache backends.
+    """
     settings = get_settings(app, settings)
     caches = {}
     caches_settings: Dict[str, dict] = getattr(settings, "CACHES", {})

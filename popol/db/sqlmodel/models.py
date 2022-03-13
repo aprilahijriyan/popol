@@ -13,6 +13,11 @@ except ImportError:
 
 
 class Model(SQLModel):
+    """
+    Abstract model providing `id`, `date_created` and `date_updated` fields.
+    And also automatic table naming to `snake_case`.
+    """
+
     id: int = Field(primary_key=True)
     date_created: datetime = Field(sa_column=Column(DateTime, default=datetime.utcnow))
     date_updated: datetime = Field(sa_column=Column(DateTime, onupdate=datetime.utcnow))

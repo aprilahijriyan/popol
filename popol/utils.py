@@ -128,4 +128,13 @@ def abort(status_code: int, detail: Any = None, headers: dict = None):
 
 
 def run_sync(func: Coroutine, *args, **kwds):
+    """
+    Run async function to sync.
+
+    Args:
+        func: coroutine function
+        \*args: argument to pass to func
+        \*\*kwds: keyword argument to pass to func
+    """
+
     return syncify(func)(*args, **kwds)

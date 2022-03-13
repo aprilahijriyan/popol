@@ -12,6 +12,9 @@ from .key import get_cache_key
 
 
 def auto_connect(method: MethodType):
+    """
+    Decorator to ensure the backend cache is connected to the server.
+    """
     if iscoroutinefunction(method):
 
         @wraps(method)
@@ -41,6 +44,11 @@ def cached(
 ) -> Callable:
     """
     Decorator to cache the result of a function.
+
+    Args:
+        timeout: Timeout in seconds.
+        key: Function to generate the cache key.
+        cache: The cache name.
     """
 
     assert callable(key), "key must be callable"

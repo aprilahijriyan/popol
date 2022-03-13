@@ -8,6 +8,21 @@ from .queue import Queue
 
 
 def setup(app: FastAPI, settings: Any = None) -> Dict[str, Queue]:
+    """
+    Install the saq plugin to the app.
+    This will install 2 new attributes to `app.state` which are:
+
+    * `queue` - SAQ Queue (Default, if available)
+    * `queues` - All SAQ queues (dict type)
+
+    Args:
+        app: FastAPI app.
+        settings: The settings (can be pydantic.BaseSettings).
+
+    Returns:
+        Dict[str, Queue]: The SAQ queues.
+    """
+
     settings = get_settings(app, settings)
     queue_maps, _ = parse_config(settings)
     app.state.queue = queue_maps.get("default")
