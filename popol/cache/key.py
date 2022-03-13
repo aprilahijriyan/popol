@@ -6,6 +6,10 @@ from popol.utils import get_settings
 
 
 def get_cache_key(request: Request) -> str:
+    """
+    Generate cache keys using the concatenation of route paths, HTTP methods and query params.
+    """
+
     path = request.url.path
     query_params = request.scope.get("query_string", b"").decode()
     part = path + query_params
