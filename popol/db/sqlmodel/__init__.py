@@ -18,6 +18,10 @@ except ImportError:
 
 
 class Database:
+    """
+    A class to wrap the sqlalchemy engine and open a connection session to the db.
+    """
+
     def __init__(self, engine: Union[Engine, AsyncEngine], is_async: bool = False):
         self.engine = engine
         self.is_async = is_async
@@ -30,6 +34,20 @@ class Database:
 
 
 def setup(app: FastAPI, settings: BaseSettings = None) -> Database:
+    """
+    Install the sqlmodel plugin to the app.
+    This will attach 1 attribute to `app.state` i.e:
+
+    * `db` - `popol.sqlmodel.Database` instance object to open db connection.
+
+    Args:
+        app: FastAPI app.
+        settings: The settings (can be pydantic.BaseSettings).
+
+    Returns:
+        Database: The database.
+    """
+
     settings = get_settings(app, settings)
     prefix = "SQLALCHEMY_"
     db_uri = getattr(settings, f"{prefix}DATABASE_URI", None)

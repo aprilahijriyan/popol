@@ -4,6 +4,16 @@ from .queue import Queue
 
 
 def parse_config(settings: Any) -> Tuple[Dict[str, Queue], Dict[str, dict]]:
+    """
+    SAQ configuration parsing.
+
+    Args:
+        settings: The settings (can be pydantic.BaseSettings).
+
+    Returns:
+        Tuple[Dict[str, Queue], Dict[str, dict]]: The SAQ queues and the queue settings.
+    """
+
     saq_queues: Dict[str, dict] = getattr(settings, "SAQ_QUEUES", {})
     if not isinstance(saq_queues, dict):
         raise RuntimeError("SAQ_QUEUES must be a dict, got {}".format(type(saq_queues)))

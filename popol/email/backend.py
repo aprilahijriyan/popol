@@ -70,6 +70,14 @@ class EmailBackend:
         mail_options: Optional[Iterable[str]] = None,
         rcpt_options: Optional[Iterable[str]] = None,
     ) -> Optional[Awaitable]:
+        """
+        Send an email message.
+        If `_async_mode` is `True` the function will return a coroutine object.
+        otherwise, it will send the message immediately.
+
+        Note:
+            if `async_mode` is `False`, you need to change the endpoint function to **sync** NOT **async**
+        """
         assert isinstance(
             message, Message
         ), "Message must be an instance of popol.email.message.Message"

@@ -2,8 +2,9 @@ import os
 from typing import Optional
 
 from pkg_resources import get_distribution, iter_entry_points
-from popol.utils import copy_template_dir
 from typer import Argument, Context, Option, Typer, echo, prompt
+
+from popol.utils import copy_template_dir
 
 popol = Typer(
     name="popol", help="Popol CLI", no_args_is_help=True, invoke_without_command=True
@@ -11,6 +12,9 @@ popol = Typer(
 
 
 def load_commands():
+    """
+    Load all global commands from entry point to command`popol`
+    """
     for ep in iter_entry_points("popol.commands"):
         cmd = ep.load()
         if isinstance(cmd, Typer):

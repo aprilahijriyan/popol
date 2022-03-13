@@ -34,9 +34,22 @@ class Queue(_Queue):
         load: Callable = json.loads,
         **kwargs,
     ):
+        """
+        Initialize a queue.
+
+        Args:
+            url: The redis url.
+            name: The queue name.
+            dump: Function to serialize job to redis.
+            load: Function to deserialize job from redis.
+        """
+
         self.url = url
         redis = Redis.from_url(url, **kwargs)
         super().__init__(redis, name, dump, load)
 
     async def enqueue(self, job_or_func, **kwargs) -> Job:
+        """
+        Enqueue a job.
+        """
         return await super().enqueue(job_or_func, **kwargs)

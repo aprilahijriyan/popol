@@ -6,6 +6,20 @@ from .backend import EmailBackend
 
 
 def setup(app: FastAPI, settings: BaseSettings = None) -> EmailBackend:
+    """
+    Install the email plugin to the app.
+    This will attach 1 attribute to `app.state` i.e:
+
+    * `email` - `popol.email.backend.EmailBackend` instance object for sending email.
+
+    Args:
+        app: FastAPI app.
+        settings: The settings (can be pydantic.BaseSettings).
+
+    Returns:
+        popol.email.backend.EmailBackend: The email backend.
+    """
+
     settings = get_settings(app, settings)
     params = {}
     prefix = "EMAIL_"
