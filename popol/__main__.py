@@ -13,14 +13,18 @@ popol = Typer(
 
 def load_commands():
     """
-    Load all global commands from entry point to command`popol`
+    Load all global commands from entry point to `popol` command.
     """
     for ep in iter_entry_points("popol.commands"):
-        cmd = ep.load()
-        if isinstance(cmd, Typer):
-            popol.add_typer(cmd)
-        else:
-            popol.command(ep.name, cmd)
+        try:
+            cmd = ep.load()
+            if isinstance(cmd, Typer):
+                popol.add_typer(cmd)
+            else:
+                popol.command(ep.name, cmd)
+        except Exception:
+            # TODO: log error
+            pass
 
 
 @popol.callback()
