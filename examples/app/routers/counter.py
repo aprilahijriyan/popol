@@ -17,4 +17,5 @@ async def get_counter(request: Request):
         if counter is None:
             counter = Counter(value=0)
             session.add(counter)
+            session.commit()
         return {"value": counter.value}
