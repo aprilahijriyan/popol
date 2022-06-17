@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "popol"
-version = "0.1.0"
+version = "0.2.0"
 description = "Third party packages for your FastAPI projects"
 authors = ["aprilahijriyan <hijriyan23@gmail.com>"]
 license = "MIT"
