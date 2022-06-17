@@ -12,8 +12,8 @@ def setup(app: FastAPI, settings: Any = None) -> Dict[str, Queue]:
     Install the saq plugin to the app.
     This will install 2 new attributes to `app.state` which are:
 
-    * `queue` - SAQ Queue (Default, if available)
-    * `queues` - All SAQ queues (dict type)
+    * `saq_queue` - SAQ Queue (Default, if available)
+    * `saq_queues` - All SAQ queues (dict type)
 
     Args:
         app: FastAPI app.
@@ -25,6 +25,6 @@ def setup(app: FastAPI, settings: Any = None) -> Dict[str, Queue]:
 
     settings = get_settings(app, settings)
     queue_maps, _ = parse_config(settings)
-    app.state.queue = queue_maps.get("default")
-    app.state.queues = queue_maps
+    app.state.saq_queue = queue_maps.get("default")
+    app.state.saq_queues = queue_maps
     return queue_maps
