@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request
 from popol.cache.decorators import cached
-from popol.db.sqlmodel import Database
+from popol.db.sqlmodel.globals import db
 from popol.utils import abort
 from pydantic import BaseModel
 from sqlalchemy import desc
@@ -24,7 +24,6 @@ def get_accounts(request: Request, page: int = 1, page_size: int = 10):
     Get all accounts.
     """
 
-    db: Database = request.app.state.db
     with db.open() as session:
         data = session.query(Account).order_by(desc(Account.id))
         return get_paginated_response(data, page, page_size)
@@ -36,7 +35,6 @@ async def create_account(request: Request, body: AccountCreate):
     Create a new account.
     """
 
-    db: Database = request.app.state.db
     with db.open() as session:
         account = Account(**body.dict())
         session.add(account)
@@ -51,7 +49,6 @@ async def get_account(request: Request, id: int):
     Get an account.
     """
 
-    db: Database = request.app.state.db
     with db.open() as session:
         account: Account = session.query(Account).where(Account.id == id).first()
         if not account:
@@ -66,7 +63,6 @@ async def update_account(request: Request, id: int, body: AccountCreate):
     Update an account.
     """
 
-    db: Database = request.app.state.db
     with db.open() as session:
         account: Account = session.query(Account).where(Account.id == id).first()
         if not account:
@@ -86,7 +82,6 @@ async def delete_account(request: Request, id: int):
     Delete an account.
     """
 
-    db: Database = request.app.state.db
     with db.open() as session:
         account: Account = session.query(Account).where(Account.id == id).first()
         if not account:

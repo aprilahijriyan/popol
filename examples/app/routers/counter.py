@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request
-from popol.db.sqlmodel import Database
+from popol.db.sqlmodel.globals import db
 
 from app.models import Counter
 
@@ -11,7 +11,6 @@ async def get_counter(request: Request):
     """
     Get the current value of the counter
     """
-    db: Database = request.app.state.db
     with db.open() as session:
         counter = session.query(Counter).first()
         if counter is None:

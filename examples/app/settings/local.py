@@ -60,5 +60,5 @@ class Settings(BaseSettings):
     # EMAIL_CLIENT_CERT = None
     # EMAIL_CLIENT_KEY = None
     # EMAIL_CERT_BUNDLE = None
-    EMAIL_ASYNC_MODE = False
+    # EMAIL_ASYNC_MODE = False
     DEFAULT_FROM_EMAIL = "Local <noreply@localhost>"

@@ -1,7 +1,7 @@
 from typing import List
 
 from fastapi import APIRouter, Request
-from popol.email.backend import EmailBackend
+from popol.email.globals import email
 from popol.email.message import Message
 from pydantic import BaseModel, EmailStr
 
@@ -25,6 +25,5 @@ async def send_email(request: Request, body: SendEmail):
         subject=body.subject,
         text=body.text,
     )
-    email: EmailBackend = request.app.state.email
     await email.send(message)
     return {"detail": "Email sent"}
