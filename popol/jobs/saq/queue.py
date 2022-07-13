@@ -9,7 +9,14 @@ except ImportError:
     errMsg = "SAQ is not installed. Please install it with `pip install saq`"
     raise RuntimeError(errMsg)
 
-from popol.json import json
+from popol import json
+
+
+def _json_dumps(*args, **kwargs):
+    data = json.dumps(*args, **kwargs)
+    if isinstance(data, bytes):
+        data = data.decode("utf-8")
+    return data
 
 
 class Queue(_Queue):
@@ -18,7 +25,7 @@ class Queue(_Queue):
         cls,
         url: str,
         name: str = "popol",
-        dump: Callable = json.dumps,
+        dump: Callable = _json_dumps,
         load: Callable = json.loads,
         **kwargs,
     ) -> "Queue":

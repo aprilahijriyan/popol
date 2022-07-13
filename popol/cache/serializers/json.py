@@ -1,6 +1,7 @@
-import json
 from datetime import datetime
 from typing import Any, Optional, Union
+
+from popol import json
 
 from .base import BaseSerializer
 
@@ -30,7 +31,10 @@ class JSONSerializer(BaseSerializer):
         """
         Serialize the data to a JSON string.
         """
-        return json.dumps(data, **self.dumps_kwargs)
+        value = json.dumps(data, **self.dumps_kwargs)
+        if isinstance(value, bytes):
+            value = value.decode("utf-8")
+        return value
 
     def loads(self, data: Union[str, bytes]) -> JSON_TYPE:
         """
