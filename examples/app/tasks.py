@@ -12,7 +12,7 @@ async def scrape_quote(ctx: dict, *, tag: str):
 
     print("Scraping quote...")
     quotes = await goodreads.get_quotes(tag)
-    cache.set(tag, quotes, 60)
+    cache.set(tag, quotes, 120)
     print("Done")
 
 
