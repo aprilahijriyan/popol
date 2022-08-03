@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 try:
     from humps.main import depascalize
@@ -20,7 +21,9 @@ class Model(SQLModel):
 
     id: int = Field(primary_key=True)
     date_created: datetime = Field(sa_column=Column(DateTime, default=datetime.utcnow))
-    date_updated: datetime = Field(sa_column=Column(DateTime, onupdate=datetime.utcnow))
+    date_updated: Optional[datetime] = Field(
+        sa_column=Column(DateTime, onupdate=datetime.utcnow, nullable=True)
+    )
 
     @declared_attr
     def __tablename__(cls):
