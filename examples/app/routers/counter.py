@@ -6,7 +6,7 @@ from app.models import Counter
 router = APIRouter(prefix="/counter", tags=["Counter"])
 
 
-@router.get("/", summary="Get the current value of the counter")
+@router.get("/", summary="Get the current value of the counter", response_model=Counter)
 async def get_counter(request: Request):
     """
     Get the current value of the counter
@@ -17,4 +17,5 @@ async def get_counter(request: Request):
             counter = Counter(value=0)
             session.add(counter)
             session.commit()
-        return {"value": counter.value}
+        session.refresh(counter)
+        return counter.dict()

@@ -1,6 +1,5 @@
 from typing import TypeVar
 
-from popol.db.sqlmodel.models import Model
 from popol.pagination import PageNumberPagination
 from sqlalchemy.orm.query import Query
 
@@ -13,13 +12,9 @@ class Pagination(PageNumberPagination):
         limit = self.get_limit()
         if isinstance(data, Query):
             data = data.offset(offset).limit(limit).all()
-
-        results = []
-        for d in data:
-            if isinstance(d, Model):
-                d = d.dict()
-            results.append(d)
-        return results
+        else:
+            data = data[offset : offset + limit]
+        return data
 
     def get_total_data(self, data: T) -> int:
         if isinstance(data, Query):
