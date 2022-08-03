@@ -5,6 +5,7 @@ from popol.email.globals import email
 from popol.email.message import Message
 from pydantic import BaseModel, EmailStr
 
+from app.schema import DetailSchema
 from app.settings import settings
 
 
@@ -17,7 +18,7 @@ class SendEmail(BaseModel):
 router = APIRouter(prefix="/email", tags=["email"])
 
 
-@router.post("/send", summary="Send an email")
+@router.post("/send", summary="Send an email", response_model=DetailSchema)
 async def send_email(request: Request, body: SendEmail):
     message = Message(
         from_email=settings.DEFAULT_FROM_EMAIL,
