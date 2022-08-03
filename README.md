@@ -1,6 +1,6 @@
 # Popol ⛅
 
-> Third party packages for your FastAPI projects ⛅
+> Adding new power to your FastAPI application ⛅
 
 Popol is a library that provides as-is tools for use on FastAPI.
 
@@ -34,7 +34,7 @@ This project aims to provide APIs to support your FastAPI projects without break
 
     - [ ] MongoEngine
 
-- [x] SMTP client (using aioredis) to send emails.
+- [x] SMTP client (using aiosmtplib) to send emails.
 - Background Jobs:
 
     - [x] SAQ queue support for task scheduling
