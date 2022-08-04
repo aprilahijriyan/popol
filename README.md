@@ -15,8 +15,7 @@ This project aims to provide APIs to support your FastAPI projects without break
 
     - Backends
 
-        - [x] Redis
-        - [x] Aioredis
+        - [x] Redis (Sync/Async)
         - [ ] Memcached
 
     - Serializers
@@ -43,7 +42,7 @@ This project aims to provide APIs to support your FastAPI projects without break
 ## Installation 📚
 
 ```
-pip install popol
+pip install popol>=0.4.0
 ```
 
 ## Documentation 📖
