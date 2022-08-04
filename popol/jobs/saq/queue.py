@@ -1,7 +1,7 @@
 from typing import Callable
 
 try:
-    from aioredis.client import Redis
+    from redis.asyncio.client import Redis
     from saq.job import Job
     from saq.queue import Queue as _Queue
 
@@ -29,7 +29,7 @@ class Queue(_Queue):
         load: Callable = json.loads,
         **kwargs,
     ) -> "Queue":
-        """Create a queue with a redis url a name."""
+        """Create SAQ queue"""
         return cls(url, name=name, dump=dump, load=load, **kwargs)
 
     def __init__(

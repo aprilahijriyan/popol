@@ -20,7 +20,7 @@ class Settings(BaseSettings):
             },
         },
         "aioredis": {
-            "backend": "popol.cache.backends.aioredis.AsyncRedisBackend",
+            "backend": "popol.cache.backends.redis.AsyncRedisBackend",
             "options": {
                 "host": REDIS_HOST,
                 "port": REDIS_PORT,
