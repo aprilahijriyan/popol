@@ -55,7 +55,7 @@ background_jobs = ["saq"]
 orm = ["sqlmodel", "pyhumps"]
 
 # all
-all = ["fastapi", "sqlmodel", "pyhumps", "redis", "saq", "aiosmtplib"]
+all = ["fastapi", "pydantic", "sqlmodel", "pyhumps", "redis", "saq", "aiosmtplib"]
 
 [tool.poetry.dev-dependencies]
 ipython = "^8.1.1"
