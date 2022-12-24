@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "popol"
-version = "0.5.0"
+version = "0.5.1"
 description = "Adding new power to your FastAPI application ⛅"
 authors = ["aprilahijriyan <hijriyan23@gmail.com>"]
 license = "MIT"
