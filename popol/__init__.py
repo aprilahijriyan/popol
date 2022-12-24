@@ -11,3 +11,11 @@ These are the features currently available:
 * Pagination
 
 """
+
+try:
+    import fastapi  # noqa
+    import pydantic  # noqa
+except ModuleNotFoundError:
+    raise RuntimeError(
+        "Some modules are missing. Run the command below to install the module. ``pip install fastapi pydantic``"
+    )
