@@ -1,7 +1,6 @@
 from hashlib import md5
 
 from fastapi import FastAPI, Request
-
 from popol.utils import get_settings
 
 

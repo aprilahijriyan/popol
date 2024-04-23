@@ -2,9 +2,8 @@ import os
 from typing import Optional
 
 from pkg_resources import get_distribution, iter_entry_points
-from typer import Argument, Context, Option, Typer, echo, prompt
-
 from popol.utils import copy_template_dir
+from typer import Argument, Context, Option, Typer, echo, prompt
 
 popol = Typer(
     name="popol", help="Popol CLI", no_args_is_help=True, invoke_without_command=True
