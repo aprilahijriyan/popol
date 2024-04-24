@@ -1,7 +1,6 @@
-from typing import Union
+from typing import Any, Union
 
 from fastapi import FastAPI
-from pydantic import BaseSettings
 
 from ...utils import get_settings
 
@@ -33,7 +32,7 @@ class Database:
             return Session(self.engine)
 
 
-def setup(app: FastAPI, settings: BaseSettings = None) -> Database:
+def setup(app: FastAPI, settings: Any = None) -> Database:
     """
     Install the sqlmodel plugin to the app.
     This will attach 1 attribute to `app.state` i.e:

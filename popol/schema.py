@@ -1,7 +1,12 @@
 from typing import Generic, List, Optional, TypeVar
 
-from pydantic import BaseModel
-from pydantic.generics import GenericModel
+from pydantic import __version__ as PYDANTIC_VERSION, BaseModel
+
+if not PYDANTIC_VERSION.startswith("2"):
+    from pydantic.generics import GenericModel
+else:
+    # pydantic >= 2.0
+    GenericModel = BaseModel
 
 GenericResultsType = TypeVar("GenericResultsType")
 

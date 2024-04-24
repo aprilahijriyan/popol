@@ -2,10 +2,10 @@ from typing import Awaitable, Iterable, Optional, Sequence, Union
 
 try:
     from aiosmtplib import SMTP
-    from aiosmtplib.connection import DEFAULT_TIMEOUT
+    from aiosmtplib.smtp import DEFAULT_TIMEOUT
 except ImportError:
     raise RuntimeError(
-        "aiosmtplib is not installed. Please install it with `pip install aiosmtplib`"
+        "aiosmtplib is not installed. Please install it with `pip install aiosmtplib>=3.0.1`"
     )
 
 from ..utils import run_sync

@@ -6,10 +6,12 @@ from functools import partial
 
 from pydantic import BaseModel
 
+from . import dantic
+
 
 def _json_default(o: object):
     if isinstance(o, BaseModel):
-        return o.dict()
+        return dantic.to_dict(o)
     raise ValueError(f"unknown object {o!r}")
 
 

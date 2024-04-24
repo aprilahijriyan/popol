@@ -1,11 +1,12 @@
+from typing import Any
+
 from fastapi import FastAPI
-from pydantic import BaseSettings
 
 from ..utils import get_settings, import_attr
 from .backend import EmailBackend
 
 
-def setup(app: FastAPI, settings: BaseSettings = None) -> EmailBackend:
+def setup(app: FastAPI, settings: Any = None) -> EmailBackend:
     """
     Install the email plugin to the app.
     This will attach 1 attribute to `app.state` i.e:

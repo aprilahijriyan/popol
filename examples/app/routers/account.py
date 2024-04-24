@@ -3,6 +3,7 @@ from popol.cache.decorators import cached
 from popol.db.sqlmodel.globals import db
 from popol.schema import Page
 from popol.utils import abort
+from popol import dantic
 from pydantic import BaseModel
 from sqlalchemy import desc
 
@@ -38,11 +39,11 @@ async def create_account(request: Request, body: AccountCreate):
     """
 
     with db.open() as session:
-        account = Account(**body.dict())
+        account = Account(**dantic.to_dict(body))
         session.add(account)
         session.commit()
         session.refresh(account)
-        return account.dict()
+        return dantic.to_dict(account)
 
 
 @router.get("/{id}", summary="Get an account", response_model=Account)
@@ -56,7 +57,7 @@ async def get_account(request: Request, id: int):
         if not account:
             abort(404, "Account not found")
 
-        return account.dict()
+        return dantic.to_dict(account)
 
 
 @router.put("/{id}", summary="Update an account", response_model=Account)
@@ -75,7 +76,7 @@ async def update_account(request: Request, id: int, body: AccountCreate):
         session.add(account)
         session.commit()
         session.refresh(account)
-        return account.dict()
+        return dantic.to_dict(account)
 
 
 @router.delete("/{id}", summary="Delete an account", response_model=DetailSchema)

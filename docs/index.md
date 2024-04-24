@@ -13,35 +13,34 @@ This project aims to provide APIs to support your FastAPI projects without break
 - [x] Pagination
 - Cache Framework
 
-    - Backends
+  - Backends
 
-        - [x] Redis
-        - [x] Aioredis
-        - [ ] Memcached
+    - [x] Redis
+    - [x] Aioredis
+    - [ ] Memcached
 
-    - Serializers
+  - Serializers
 
-        - [x] JSON
-        - [x] Pickle
-        - [ ] MsgPack
+    - [x] JSON
+    - [x] Pickle
+    - [ ] MsgPack
 
 - ORM Integration
 
-    - [x] SQLModel (Async/Sync)
-    - [ ] Tortoise ORM
+  - [x] SQLModel (Async/Sync)
+  - [ ] Tortoise ORM
 
 - ODM Integration
 
-    - [ ] MongoEngine
+  - [ ] MongoEngine
 
-- [x] SMTP client (using aioredis) to send emails.
+- [x] SMTP client (using aiosmtplib) to send emails.
 - Background Jobs:
 
-    - [x] SAQ queue support for task scheduling
-
+  - [x] SAQ queue support for task scheduling
 
 ## Installation 📚
 
-```
+```sh
 pip install popol
 ```

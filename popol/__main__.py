@@ -22,13 +22,12 @@ def load_commands():
                 popol.add_typer(cmd)
             else:
                 popol.command(ep.name, cmd)
-        except Exception:
-            # TODO: log error
-            pass
+        except Exception as e:
+            echo(f"Failed to load command {ep.name}: {e}", err=True)
 
 
 @popol.callback()
-def init(
+def _calbback(
     ctx: Context,
     version: Optional[bool] = Option(
         None, "-v", "--version", is_eager=True, help="Show version number and exit"
