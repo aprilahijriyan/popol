@@ -1,5 +1,6 @@
 from pprint import pprint
-from typing import List, TypedDict
+from typing import List
+from typing_extensions import TypedDict
 
 import anyio
 from bs4 import BeautifulSoup

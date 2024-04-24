@@ -17,7 +17,6 @@ class SendEmail(BaseModel):
 
 router = APIRouter(prefix="/email", tags=["email"])
 
-
 @router.post("/send", summary="Send an email", response_model=DetailSchema)
 async def send_email(request: Request, body: SendEmail):
     message = Message(
