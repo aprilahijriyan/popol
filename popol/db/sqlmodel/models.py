@@ -1,9 +1,8 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Optional
 
 try:
     from humps.main import depascalize
-    from sqlalchemy import Column, DateTime
     from sqlalchemy.orm.decl_api import declared_attr
     from sqlmodel import Field, SQLModel
 
@@ -20,9 +19,9 @@ class Model(SQLModel):
     """
 
     id: int = Field(primary_key=True)
-    date_created: datetime = Field(sa_column=Column(DateTime, default=datetime.utcnow))
+    date_created: datetime = Field(sa_column_kwargs={"default": datetime.now(timezone.utc)})
     date_updated: Optional[datetime] = Field(
-        sa_column=Column(DateTime, onupdate=datetime.utcnow, nullable=True)
+        sa_column_kwargs={"onupdate": datetime.now(timezone.utc), "nullable": True}
     )
 
     @declared_attr
