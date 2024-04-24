@@ -11,7 +11,7 @@ repos:
     hooks:
     -   id: autoflake
         name: autoflake
-        exclude: ^templates/
+        exclude: (templates/|examples/)
         args: ["-r", "-i", "--remove-all-unused-imports", "--remove-unused-variables"]
 
 -   repo: https://github.com/pycqa/isort
@@ -19,21 +19,21 @@ repos:
     hooks:
     -   id: isort
         name: isort (python)
-        exclude: ^templates/
+        exclude: (templates/|examples/)
 
     -   id: isort
         name: isort (cython)
         types: [cython]
-        exclude: ^templates/
+        exclude: (templates/|examples/)
 
     -   id: isort
         name: isort (pyi)
         types: [pyi]
-        exclude: ^templates/
+        exclude: (templates/|examples/)
 
 -   repo: https://github.com/psf/black
     rev: 24.4.0
     hooks:
     -   id: black
-        exclude: ^(templates/|examples/)
+        exclude: (templates/|examples/)
         args: ["-v"]
