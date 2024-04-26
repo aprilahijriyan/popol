@@ -1,8 +1,7 @@
 from fastapi import FastAPI
-from saq.job import CronJob
 from typing import Literal
 
-from app.tasks import counter, scrape_quote
+from tests._saq_tasks import increment
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class AppSettings(BaseSettings):
@@ -33,6 +32,9 @@ class AppSettings(BaseSettings):
                     "port": self.REDIS_PORT,
                     "db": 1,
                 },
+                "serializer": {
+                    "class": "popol.cache.serializers.JSONSerializer",
+                }
             },
         }
     
@@ -41,9 +43,8 @@ class AppSettings(BaseSettings):
         return {
             "default": {
                 "url": f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}/{self.REDIS_DB}",
-                "functions": [scrape_quote],
+                "functions": [increment],
                 "concurrency": 10,
-                "cron_jobs": [CronJob(counter, cron="* * * * *")],
                 "context": {},
             }
         }

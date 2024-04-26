@@ -60,6 +60,8 @@ def cached(
             async def wrapper(*args, **kwargs):
                 request = get_request_object(kwargs)
                 if not request:
+                    # todo: notify the user if the decorator cannot work, 
+                    # if it does not have a 'request' parameter in the endpoint function
                     return await func(*args, **kwargs)
 
                 cache_backend = get_cache_backend(request, cache)
@@ -86,6 +88,8 @@ def cached(
             def wrapper(*args, **kwargs):
                 request = get_request_object(kwargs)
                 if not request:
+                    # todo: notify the user if the decorator cannot work, 
+                    # if it does not have a 'request' parameter in the endpoint function
                     return func(*args, **kwargs)
 
                 cache_backend = get_cache_backend(request, cache)

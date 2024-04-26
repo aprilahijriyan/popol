@@ -3,6 +3,7 @@
     "conventionalCommits.scopes": [
         "config",
         "deps",
-        "template"
+        "template",
+        "cache"
     ]
 }
