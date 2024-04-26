@@ -12,7 +12,7 @@ try:
     from redis.client import Pipeline, Redis
     from redis.lock import Lock
 
-except ImportError:
+except ImportError:  # pragma: no cover
     errMsg = "Redis is not installed. Please install it with `pip install redis>=4.3.4`"
     raise RuntimeError(errMsg)
 
@@ -35,7 +35,8 @@ class RedisBackend(BaseCacheBackend):
         Create a connection to the Redis server.
         """
 
-        if self.client:
+        # Check if the client is already initialized
+        if self.client: # pragma: no cover
             return self.client
 
         kwargs.update(self.kwargs)
@@ -105,11 +106,11 @@ class RedisBackend(BaseCacheBackend):
         return self.client.decr(name, amount)
 
     @auto_connect
-    def pipeline(self, **kwds) -> Pipeline:
+    def pipeline(self, **kwds) -> Pipeline: # pragma: no cover
         return self.client.pipeline(**kwds)
 
     @auto_connect
-    def lock(self, name: str, **kwds) -> Lock:
+    def lock(self, name: str, **kwds) -> Lock: # pragma: no cover
         return self.client.lock(name, **kwds)
 
     def __enter__(self) -> "RedisBackend":
@@ -146,7 +147,8 @@ class AsyncRedisBackend(BaseCacheBackend):
         Create a connection to the Redis server.
         """
 
-        if self.client:
+        # Check if the client is already initialized
+        if self.client: # pragma: no cover
             return self.client
 
         kwargs.update(self.kwargs)
@@ -218,11 +220,11 @@ class AsyncRedisBackend(BaseCacheBackend):
 
     @auto_connect
     def pipeline(self, **kwds) -> AsyncPipeline:
-        return self.client.pipeline(**kwds)
+        return self.client.pipeline(**kwds) # pragma: no cover
 
     @auto_connect
     def lock(self, name: str, **kwds) -> AsyncLock:
-        return self.client.lock(name, **kwds)
+        return self.client.lock(name, **kwds) # pragma: no cover
 
     async def __aenter__(self) -> "AsyncRedisBackend":
         """

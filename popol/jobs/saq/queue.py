@@ -5,7 +5,7 @@ try:
     from saq.job import Job
     from saq.queue import Queue as _Queue
 
-except ImportError:
+except ImportError:  # pragma: no cover
     errMsg = "SAQ is not installed. Please install it with `pip install saq`"
     raise RuntimeError(errMsg)
 

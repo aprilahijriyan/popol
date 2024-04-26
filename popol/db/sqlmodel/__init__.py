@@ -10,7 +10,7 @@ try:
     from sqlmodel import Session, SQLModel, create_engine
     from sqlmodel.ext.asyncio.session import AsyncSession
 
-except ImportError:
+except ImportError:  # pragma: no cover
     raise RuntimeError(
         "SQLModel is not installed. Please install it with `pip install sqlmodel pyhumps`"
     )
