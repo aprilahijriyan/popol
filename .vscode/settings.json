@@ -1,8 +1,0 @@
-{
-    "python.formatting.provider": "black",
-    "conventionalCommits.scopes": [
-        "config",
-        "deps",
-        "template"
-    ]
-}

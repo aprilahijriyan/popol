@@ -1,8 +1,7 @@
 from fastapi import FastAPI
-from saq.job import CronJob
 from typing import Literal
 
-from app.tasks import counter, scrape_quote
+from tests._saq_tasks import increment
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class AppSettings(BaseSettings):
@@ -33,6 +32,9 @@ class AppSettings(BaseSettings):
                     "port": self.REDIS_PORT,
                     "db": 1,
                 },
+                "serializer": {
+                    "class": "popol.cache.serializers.JSONSerializer",
+                }
             },
         }
     
@@ -41,30 +43,18 @@ class AppSettings(BaseSettings):
         return {
             "default": {
                 "url": f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}/{self.REDIS_DB}",
-                "functions": [scrape_quote],
+                "functions": [increment],
                 "concurrency": 10,
-                "cron_jobs": [CronJob(counter, cron="* * * * *")],
                 "context": {},
             }
         }
-    
-    DB_USERNAME: str = "popol_user"
-    DB_PASSWORD: str = "popol_pass"
-    DB_HOST: str = "localhost"
-    DB_PORT: int = 5432
-    DB_NAME: str = "popol_db"
+
+    DB_NAME: str = "popol_test_db.sqlite"
     SQLALCHEMY_ASYNC_MODE: bool = False
-    
-    @property
-    def SQLALCHEMY_DIALECT(self) -> str:
-        dialect = "psycopg2"
-        if self.SQLALCHEMY_ASYNC_MODE:
-            dialect = "asyncpg"
-        return dialect
 
     @property
     def SQLALCHEMY_DATABASE_URI(self):
-        return f"postgresql+{self.SQLALCHEMY_DIALECT}://{self.DB_USERNAME}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        return f"sqlite:///{self.DB_NAME}"
     
     SQLALCHEMY_OPTIONS: dict = {}
     EMAIL_BACKEND: str = "popol.email.backend.EmailBackend"
