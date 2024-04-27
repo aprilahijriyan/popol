@@ -104,6 +104,6 @@ saq = "popol.jobs.saq.cli:saq"
 "Bug Tracker" = "https://github.com/aprilahijriyan/popol/issues"
 
 [tool.pytest.ini_options]
-addopts = "--cov=popol -v"
+addopts = "--cov=popol -v --cov-report xml --cov-report term "
 testpaths = ["tests"]
 # asyncio_mode = "auto"

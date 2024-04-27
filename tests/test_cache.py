@@ -69,6 +69,7 @@ def test_sync_redis_backend():
         assert cache.get(key) == 1
         assert cache.incr(key) == 2
         assert cache.decr(key) == 1
+        cache.clear()
 
 @pytest.mark.anyio
 async def test_async_redis_backend():
@@ -81,3 +82,4 @@ async def test_async_redis_backend():
         assert await cache.get(key) == 1
         assert await cache.incr(key) == 2
         assert await cache.decr(key) == 1
+        await cache.clear()
