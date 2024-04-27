@@ -6,8 +6,16 @@ name: Unit tests
 on:
   push:
     branches: [ "next" ]
+    paths:
+      - 'popol/**'
+      - 'tests/**'
+      - 'pyproject.toml'
   pull_request:
     branches: [ "next" ]
+    paths:
+      - 'popol/**'
+      - 'tests/**'
+      - 'pyproject.toml'
 
 permissions:
   contents: read
