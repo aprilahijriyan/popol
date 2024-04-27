@@ -1,5 +1,9 @@
 # Popol ⛅
 
+[![codecov](https://codecov.io/github/aprilahijriyan/popol/graph/badge.svg?token=3HG2SKPOLH)](https://codecov.io/github/aprilahijriyan/popol)
+![PyPI - Version](https://img.shields.io/pypi/v/popol)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/popol)
+
 > Adding new power to your FastAPI application ⛅
 
 Popol is a library that provides as-is tools for use on FastAPI.
