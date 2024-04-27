@@ -42,3 +42,7 @@ jobs:
       uses: supercharge/redis-github-action@1.8.0
     - name: Run the automated tests
       run: poetry run pytest -v -s
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}

@@ -48,24 +48,13 @@ class AppSettings(BaseSettings):
                 "context": {},
             }
         }
-    
-    DB_USERNAME: str = "popol_user"
-    DB_PASSWORD: str = "popol_pass"
-    DB_HOST: str = "localhost"
-    DB_PORT: int = 5432
-    DB_NAME: str = "popol_db"
+
+    DB_NAME: str = "popol_test_db.sqlite"
     SQLALCHEMY_ASYNC_MODE: bool = False
-    
-    @property
-    def SQLALCHEMY_DIALECT(self) -> str:
-        dialect = "psycopg2"
-        if self.SQLALCHEMY_ASYNC_MODE:
-            dialect = "asyncpg"
-        return dialect
 
     @property
     def SQLALCHEMY_DATABASE_URI(self):
-        return f"postgresql+{self.SQLALCHEMY_DIALECT}://{self.DB_USERNAME}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        return f"sqlite:///{self.DB_NAME}"
     
     SQLALCHEMY_OPTIONS: dict = {}
     EMAIL_BACKEND: str = "popol.email.backend.EmailBackend"
